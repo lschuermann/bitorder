@@ -27,6 +27,10 @@ impl<'a, B: BitOrder> BitReader<'a, B> {
         self.bit_index %= 8;
         res
     }
+
+    pub fn current_index(&self) -> (usize, usize) {
+        (self.byte_index, self.bit_index)
+    }
 }
 
 /// Write bits to a &mut \[u8\]
@@ -52,5 +56,9 @@ impl<'a, B: BitOrder> BitWriter<'a, B> {
         self.bit_index += len;
         self.byte_index += self.bit_index / 8;
         self.bit_index %= 8;
+    }
+
+    pub fn current_index(&self) -> (usize, usize) {
+        (self.byte_index, self.bit_index)
     }
 }
